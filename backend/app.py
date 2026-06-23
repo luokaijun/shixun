@@ -304,9 +304,9 @@ def init_database():
         
         for i in range(1, 21):
             cursor.execute('INSERT INTO product_images (product_id, image_url, is_main, sort_order) VALUES (?, ?, ?, ?)',
-                          (i, f'https://picsum.photos/600/600?random={i}', 1, 1))
+                          (i, f'/images/products/product_{i}_main.jpg', 1, 1))
             cursor.execute('INSERT INTO product_images (product_id, image_url, is_main, sort_order) VALUES (?, ?, ?, ?)',
-                          (i, f'https://picsum.photos/600/600?random={i+100}', 0, 2))
+                          (i, f'/images/products/product_{i}_other.jpg', 0, 2))
     
     conn.commit()
     conn.close()
