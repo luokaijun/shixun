@@ -176,7 +176,7 @@ onMounted(() => {
             如果没有图片，显示占位图
           -->
           <img 
-            :src="(product.images && product.images[selectedImageIndex]) || product.main_image || 'https://via.placeholder.com/600x600?text=商品图片'" 
+            :src="(product.images && product.images[selectedImageIndex] && product.images[selectedImageIndex].image_url) || product.main_image || 'https://via.placeholder.com/600x600?text=商品图片'" 
             :alt="product.name" 
           />
         </div>
@@ -193,7 +193,7 @@ onMounted(() => {
             :class="['thumbnail', { active: index === selectedImageIndex }]"
             @click="selectImage(index)"
           >
-            <img :src="img" :alt="`${product.name} - ${index + 1}`" />
+            <img :src="img.image_url || img" :alt="`${product.name} - ${index + 1}`" />
           </div>
         </div>
       </div>

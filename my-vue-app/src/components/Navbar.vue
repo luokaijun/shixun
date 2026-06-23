@@ -60,7 +60,7 @@ const handleLogout = () => {
       <!-- Logo区域 -->
       <div class="navbar-brand">
         <!-- Logo链接，点击跳转到首页 -->
-        <router-link to="/" class="logo">🛒 电商商城</router-link>
+        <router-link to="/" class="logo">🛒 红绿灯商城</router-link>
       </div>
       
       <!-- 导航菜单 -->

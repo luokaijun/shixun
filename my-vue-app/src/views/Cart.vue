@@ -194,7 +194,7 @@ const checkout = () => {
             <!-- 总价 -->
             <div class="total-price">
               <span class="label">合计：</span>
-              <span class="value">¥{{ cartStore.totalPrice }}</span>
+              <span class="value">¥{{ cartStore.total }}</span>
             </div>
             <!-- 结算按钮 -->
             <button class="checkout-btn" @click="checkout">结算</button>

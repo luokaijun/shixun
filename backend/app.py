@@ -1,13 +1,14 @@
 from functools import wraps
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from waitress import serve
 import sqlite3
 from uuid import uuid4
 from datetime import datetime
 import json
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 CORS(app)
 
 DB_PATH = 'shop_ecommerce.db'
@@ -302,14 +303,25 @@ def init_database():
                                  description, specifications) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', products)
         
-        for i in range(1, 21):
+        for i, kw in enumerate([
+            'headphone','smartwatch','tshirt','sneaker,running','thermos,bottle',
+            'storage,box','nuts,gift','honey,jar','book,python','book,design',
+            'mouse,computer','keyboard,mechanical','shorts,clothing','jacket,outdoor',
+            'lamp,desk','usb,cable','chocolate,box','children,book',
+            'powerbank,battery','water,bottle,sports'
+        ], 1):
             cursor.execute('INSERT INTO product_images (product_id, image_url, is_main, sort_order) VALUES (?, ?, ?, ?)',
-                          (i, f'/images/products/product_{i}_main.jpg', 1, 1))
+                          (i, f'https://loremflickr.com/600/600/{kw}?lock={i}', 1, 1))
             cursor.execute('INSERT INTO product_images (product_id, image_url, is_main, sort_order) VALUES (?, ?, ?, ?)',
-                          (i, f'/images/products/product_{i}_other.jpg', 0, 2))
+                          (i, f'https://loremflickr.com/600/600/{kw}?lock={i + 50}', 0, 2))
     
     conn.commit()
     conn.close()
+
+
+@app.route('/images/<path:filename>')
+def serve_image(filename):
+    return send_from_directory(os.path.join(app.static_folder, 'images'), filename)
 
 
 @app.route('/api/test', methods=['GET'])
@@ -426,6 +438,9 @@ def product_detail(product_id):
         cursor.execute('SELECT image_url, is_main FROM product_images WHERE product_id = ? ORDER BY sort_order', (product_id,))
         images = [row_to_dict(row) for row in cursor.fetchall()]
         product['images'] = images
+
+        main_img = next((img for img in images if img.get('is_main') == 1), images[0] if images else None)
+        product['main_image'] = main_img['image_url'] if main_img else ''
 
         cursor.execute('''
             SELECT r.*, u.nickname, u.avatar

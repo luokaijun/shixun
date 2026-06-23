@@ -154,7 +154,7 @@ onMounted(() => {
     <!-- Hero轮播区域 -->
     <section class="hero-section">
       <div class="hero-content">
-        <h1>欢迎来到电商商城</h1>
+        <h1>欢迎来到红绿灯商城</h1>
         <p>发现优质商品，享受购物乐趣</p>
         <button class="hero-btn" @click="goToAllProducts">立即选购</button>
       </div>

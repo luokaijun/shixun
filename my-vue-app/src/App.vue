@@ -10,7 +10,7 @@ import Navbar from './components/Navbar.vue'
     </main>
     <footer class="app-footer">
       <div class="container">
-        <p>&copy; 2024 电商商城. All rights reserved.</p>
+        <p>&copy; 2024 红绿灯商城. All rights reserved.</p>
       </div>
     </footer>
   </div>
