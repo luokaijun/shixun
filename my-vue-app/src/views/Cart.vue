@@ -72,7 +72,7 @@ const removeItem = async (cartItemId) => {
   
   try {
     // 调用购物车store的删除方法
-    await cartStore.removeFromCart(cartItemId)
+    await cartStore.removeItem(cartItemId)
   } catch (error) {
     // 删除失败时显示错误提示
     alert('删除失败，请重试')

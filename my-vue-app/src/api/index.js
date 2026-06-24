@@ -32,7 +32,7 @@
  * 后端API基础地址
  * 默认指向本地Flask开发服务器
  */
-const BASE_URL = 'http://localhost:5000/api'
+const BASE_URL = '/api'
 
 /**
  * 通用请求方法
@@ -190,7 +190,7 @@ export const removeFromCart = async (id) => {
  * @returns {Promise<Object>} 登录结果
  */
 export const login = async (data) => {
-  return request('POST', '/login', data)
+  return request('POST', '/auth/login', data)
 }
 
 /**
@@ -202,7 +202,7 @@ export const login = async (data) => {
  * @returns {Promise<Object>} 注册结果
  */
 export const register = async (data) => {
-  return request('POST', '/register', data)
+  return request('POST', '/auth/register', data)
 }
 
 /**
